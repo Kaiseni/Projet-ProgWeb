@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: projet-web-deployment
+spec:
+  # On veut 1 seule copie du pod pour commencer (vous pourrez changer ça plus tard)
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mon-projet-web
+  template:
+    metadata:
+      labels:
+        app: mon-projet-web
+    spec:
+      containers:
+      - name: mon-container-web
+        # ATTENTION : Mettez ici le nom EXACT utilisé lors du 'docker build'
+        image: my-project:latest
+        # Important pour le local : utilise l'image locale sans chercher sur internet
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
